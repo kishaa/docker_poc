@@ -16,14 +16,14 @@ RUN curl -o /etc/yum.repos.d/mssql-server.repo https://packages.microsoft.com/co
 # Installing/ Uninstalling required components
 RUN yum remove -y unixODBC && \
     yum install -y mssql-server && \
-    yum install -y mssql-tools-14.0.2.0-1 && \
-    yum install -y yum install msodbcsql-13.0.1.0-1 && \
+    yum install -y mssql-tools && \
+    yum install -y msodbcsql && \
     yum install -y unixODBC-devel && \
     yum clean all
 
 #Create symlinks for tools
-RUN ln -sfn /opt/mssql-tools/bin/sqlcmd-13.0.1.0 /usr/bin/sqlcmd && \
-    ln -sfn /opt/mssql-tools/bin/bcp-13.0.1.0 /usr/bin/bcp
+RUN ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd && \
+    ln -sfn /opt/mssql-tools/bin/bcp /usr/bin/bcp
 
 # Setting environment variable to use sqlcmd command
 RUN 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
